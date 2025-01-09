@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "chalk": "^5.4.1",
-    "inquirer": "^12.3.0"
+    "inquirer": "^12.3.0",
+    "uuid": "^11.0.4"
   }
 }
