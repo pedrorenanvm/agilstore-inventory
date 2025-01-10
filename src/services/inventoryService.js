@@ -1,50 +1,41 @@
-const ProductModel = require("../models/productModel");
-const {v4: uuidv4} = require('uuid');
+const ProductModel = require('../models/ProductModel');
 
-class InventoryService { 
-  static saveProduct({name, category, quantity, price}) {
-    const products = ProductModel.getAll();
-    const newProduct = {
-      id: uuidv4(),
+class InventoryService {
+  static productModel = new ProductModel();
+
+  static saveProduct({ name, category, quantity, price }) {
+    return this.productModel.addProduct({
       name,
       category,
       quantity: parseInt(quantity),
       price: parseFloat(price),
-    };
-
-    products.push(newProduct);
-    ProductModel.saveAll(products);
-    return newProduct;
+    });
   }
 
-  static listProducts(){
-    return ProductModel.getAll();
+  static listProducts(filterBy = null, orderBy = null) {
+    return this.productModel.getAll(filterBy, orderBy);
   }
 
-  static findProductById(id){
-    const products = ProductModel.getAll();
-    return products.find((products) => products.id === id);
+
+
+  static findProductById(id) {
+    return this.productModel.findById(id);
   }
 
-  static updateProduct(id, updates){
-    const products = ProductModel.getAll();
-    const productIndex = products.findIndex((product) => product.id === id);
-
-    if(productIndex === -1) return null;
-
-    products[productIndex] = { ...products[productIndex], ...updates };
-    ProductModel.saveAll(products);
-    return products[productIndex];
+  static updateProduct(id, updates) {
+    try {
+      return this.productModel.updateProduct(id, updates);
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
   }
 
-  static deleteProduct(id){
-    let products = ProductModel.getAll();
-    const product = products.find((product) => product.id === id);
-    if(!product) return null;
+  static deleteProduct(id) {
+    return this.productModel.deleteProduct(id);
+  }
 
-    products = products.filter((product) => product.id !== id);
-    ProductModel.saveAll(products); 
-    return product;
+  static searchProduct(term) {
+    return this.productModel.search(term);
   }
 }
 
