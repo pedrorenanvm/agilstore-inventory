@@ -69,11 +69,11 @@ Siga as instruções apresentadas no terminal para interagir com o sistema de in
 ├── src
 │   ├── app.js            # Ponto de entrada da aplicação
 │   ├── controllers       # Controladores que gerenciam as operações
-│   │   └── InventoryController.js
+│   │   └── inventoryController.js
 │   ├── services          # Lógica de negócio
-│   │   └── InventoryService.js
+│   │   └── inventoryService.js
 │   ├── models            # Manipulação de dados e persistência
-│   │   └── ProductModel.js
+│   │   └── productModel.js
 │   └── products.json     # Arquivo JSON com os dados persistidos
 └── package.json          # Dependências e configuração do projeto
 ```
